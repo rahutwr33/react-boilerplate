@@ -3,17 +3,15 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link as RouterLink } from 'react-router-dom';
 import Footer from '../../../shared/components/Footer';
+import { useInput } from '../../../hooks/useInput';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -37,7 +35,21 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignUp() {
   const classes = useStyles();
+  const { value:firstname, bind:bindfirstName, reset:resetFirstName } = useInput('');
+  const { value:lastname, bind:bindlastName, reset:resetLastName } = useInput('');
+  const { value:email, bind:bindEmail, reset:resetEmail } = useInput('');
+  const { value:password, bind:bindPassword, reset:resetPassword } = useInput('');
 
+
+ const handleSubmit = (evt) => {
+  evt.preventDefault();
+  console.log('submit form', firstname , lastname,email , password)
+  resetFirstName();
+  resetLastName();
+  resetEmail();
+  resetPassword();
+}
+  
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -48,7 +60,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} onSubmit={handleSubmit}  noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -60,6 +72,7 @@ export default function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                {...bindfirstName}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -71,6 +84,7 @@ export default function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                {...bindlastName}
               />
             </Grid>
             <Grid item xs={12}>
@@ -82,6 +96,7 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                {...bindEmail}
               />
             </Grid>
             <Grid item xs={12}>
@@ -94,6 +109,7 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                {...bindPassword}
               />
             </Grid>
             
