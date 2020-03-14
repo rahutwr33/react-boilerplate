@@ -4,6 +4,7 @@ import Sidebar from '../../../shared/components/Sidebar'
 import { AdminListItems } from '../../../shared/components/Sidebar/listItems'
 import { Grid, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import { ToogleContextProvider } from '../../../context'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,13 +17,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
-
 export default function AdminLayout(props) {
   const classes = useStyles();
 
   return (
     <>
+     <ToogleContextProvider open={true}>
         <div className={classes.root}>
           <Grid container spacing={1}>
             <Grid item xs={12}>
@@ -36,6 +36,7 @@ export default function AdminLayout(props) {
             </Grid>
           </Grid>
         </div>
+      </ToogleContextProvider>
     </>
   )
 }
