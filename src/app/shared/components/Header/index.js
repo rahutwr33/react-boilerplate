@@ -14,8 +14,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { useDrawer } from '../../../hooks/usedrawer';
-import { DrawerContext } from '../../../modules/Admin/Layout';
+import { toogleContext } from '../../../context';
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -83,13 +82,11 @@ export default function Header() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const drawerContext = useContext(DrawerContext);
-  console.log("11111",drawerContext)
-  // const { open  } = drawerContext;
-
-
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const context = useContext(toogleContext);
+
+  const { tooglesidebar,open } = context;
 
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -177,7 +174,7 @@ export default function Header() {
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
-            // onClick={()=>setOpen(true)}
+            onClick={()=>tooglesidebar(true)}
           >
             <MenuIcon />
           </IconButton>

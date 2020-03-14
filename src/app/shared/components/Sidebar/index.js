@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -8,6 +8,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import { useDrawer } from '../../../hooks/usedrawer';
+import { toogleContext } from '../../../context';
 
 const drawerWidth = 240;
 
@@ -74,10 +75,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function Sidebar(props) {
   const classes = useStyles();
-  const { open ,setOpen } = useDrawer(true);
+  const context = useContext(toogleContext);
+
+  const { open ,tooglesidebar} = context;
 
   const handleDrawerClose = () => {
-    setOpen(false);
+     tooglesidebar(false);
   };
   return (
     <Drawer
