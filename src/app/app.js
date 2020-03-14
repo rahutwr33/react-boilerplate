@@ -5,7 +5,7 @@ import SignIn from './modules/Auth/Signin'
 import SignUp from './modules/Auth/Signup'
 import ForgotPassword from './modules/Auth/ForgotPassword'
 import ResetPassword from './modules/Auth/ResetPassword'
-import DashboardRoute from './modules/Dashboard/Routes'
+import DashboardRoute from './modules/Dashboard/Route'
 import AdminRoute from './modules/Admin/Route'
 
 export default function App() {

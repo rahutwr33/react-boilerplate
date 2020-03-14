@@ -1,19 +1,17 @@
 import React from 'react'
 import { Switch, Router, Route } from 'react-router-dom'
 import history from '../../utils/history'
-import AdminHome from './Home'
-import AdminLayout from './Layout'
+import Home from './Home'
+import DashboardLayout from './Layout'
 
-export default function AdminRoute() {
-
-
+export default function DashboardRoute() {
     return (
-        <AdminLayout>
+        <DashboardLayout>
             <Router history={history}>
                 <Switch>
-                    <Route path="/"  component={AdminHome} />
+                    <Route path="/" component={Home} />
                 </Switch>
             </Router>
-        </AdminLayout>
+        </DashboardLayout>
     )
 }
