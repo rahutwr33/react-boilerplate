@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
   const classes = useStyles();
   const { value:email, bind:bindEmail, reset:resetEmail } = useInput('');
   const { value:password, bind:bindPassword, reset:resetPassword } = useInput('');
@@ -45,6 +45,7 @@ export default function SignIn() {
   console.log('submit form', email , password)
   resetEmail();
   resetPassword();
+  props.history.push('/dashboard')
 
 }
   return (

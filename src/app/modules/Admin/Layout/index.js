@@ -19,14 +19,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function AdminLayout(props) {
   const classes = useStyles();
-
+console.log(props)
   return (
     <>
      <ToogleContextProvider open={true}>
         <div className={classes.root}>
           <Grid container spacing={1}>
             <Grid item xs={12}>
-              <Header />
+              <Header {...props}/>
             </Grid>
             <Grid item xs={12} sm={3}>
               <Sidebar item={AdminListItems} />

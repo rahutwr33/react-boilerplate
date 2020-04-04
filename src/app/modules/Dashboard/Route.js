@@ -4,9 +4,9 @@ import history from '../../utils/history'
 import Home from './Home'
 import DashboardLayout from './Layout'
 
-export default function DashboardRoute() {
+export default function DashboardRoute(props) {
     return (
-        <DashboardLayout>
+        <DashboardLayout {...props}>
             <Router history={history}>
                 <Switch>
                     <Route path="/" component={Home} />
