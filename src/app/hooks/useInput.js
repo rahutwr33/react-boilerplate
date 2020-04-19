@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React , { useState } from "react"; 
+React.useLayoutEffect = React.useEffect;
 
 export const useInput = initialValue => {
   const [value, setValue] = useState(initialValue);

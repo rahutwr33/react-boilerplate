@@ -8,6 +8,8 @@ import ResetPassword from './modules/Auth/ResetPassword'
 import DashboardRoute from './modules/Dashboard/Route'
 import AdminRoute from './modules/Admin/Route'
 
+const Page404 = () => <h1 id="nomatch">404 Not Found</h1>
+
 export default function App() {
     return (
         <Router history={history}>
@@ -19,7 +21,7 @@ export default function App() {
                 <Route path="/resetPassword" exact={true} component={ResetPassword} />
                 <Route path="/dashboard" name="Dashboard" render={props => <DashboardRoute {...props}/>} />
                 <Route path="/admin" name="Admin" render={props => <AdminRoute {...props}/>} />
-
+                <Route component={Page404} />
             </Switch>
         </Router>
     )
