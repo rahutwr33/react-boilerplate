@@ -75,12 +75,13 @@ export default function SignIn(props) {
               handleSubmit
             } = props;
             return (
-              <form className={classes.form} onSubmit={handleSubmit} noValidate>
+              <form id="login-form" className={`${classes.form} login`} onSubmit={handleSubmit} noValidate>
                 <TextField
                   variant="outlined"
                   margin="normal"
                   fullWidth
                   id="email"
+                  name="email"
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -106,6 +107,7 @@ export default function SignIn(props) {
                   label="Password"
                   type="password"
                   id="password"
+                  name="password"
                   autoComplete="current-password"
                   className={
                     errors.password && touched.password
@@ -121,6 +123,7 @@ export default function SignIn(props) {
                   fullWidth
                   variant="contained"
                   color="primary"
+                  id="loginbtn"
                   className={classes.submit}
                   disabled={isSubmitting}
                 >
