@@ -11,8 +11,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link as RouterLink } from 'react-router-dom';
 import Footer from '../../../shared/components/Footer';
-import { useInput } from '../../../hooks/useInput';
-
+import { Formik } from "formik";
+import * as Yup from "yup";
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -33,22 +33,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignUp(props) {
   const classes = useStyles();
-  const { value:firstname, bind:bindfirstName, reset:resetFirstName } = useInput('');
-  const { value:lastname, bind:bindlastName, reset:resetLastName } = useInput('');
-  const { value:email, bind:bindEmail, reset:resetEmail } = useInput('');
-  const { value:password, bind:bindPassword, reset:resetPassword } = useInput('');
-
-
- const handleSubmit = (evt) => {
-  evt.preventDefault();
-  console.log('submit form', firstname , lastname,email , password)
-  resetFirstName();
-  resetLastName();
-  resetEmail();
-  resetPassword();
-}
   
   return (
     <Container id="signup"  component="main" maxWidth="xs">
@@ -60,32 +46,74 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
+        <Formik
+          initialValues={{firstname:"",lastname:"", email: "" , password:"" }}
+          onSubmit={async values => {
+            console.log('submit form', values)
+            await new Promise(resolve => setTimeout(props.history.push('/dashboard'), 500));
+          }}
+          validationSchema={Yup.object().shape(
+            {
+            firstname: Yup.string()
+              .required("Required"),
+            lastname: Yup.string()
+            .required("Required"),
+            email: Yup.string()
+            .email('Email is not valid')
+            .required("Required"),
+            password: Yup.string()
+            .min(8, "Too Short!")
+            .max(50, "Too Long!")
+            .required("Required"),
+            })}
+        >
+          {props => {
+            const {
+              values,
+              touched,
+              errors,
+              isSubmitting,
+              handleChange,
+              handleBlur,
+              handleSubmit
+            } = props;
+            return (
         <form className={classes.form} onSubmit={handleSubmit}  noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
-                name="firstName"
+                name="firstname"
                 variant="outlined"
                 required
                 fullWidth
-                id="firstName"
+                value={values.firstname}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                id="firstname"
                 label="First Name"
                 autoFocus
-                {...bindfirstName}
               />
+              {errors.firstname && touched.firstname && (
+                  <div className="input-feedback">{errors.firstname}</div>
+                 )}
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
                 required
                 fullWidth
-                id="lastName"
+                value={values.lastname}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                id="lastname"
                 label="Last Name"
-                name="lastName"
+                name="lastname"
                 autoComplete="lname"
-                {...bindlastName}
               />
+              {errors.lastname && touched.lastname && (
+                  <div className="input-feedback">{errors.lastname}</div>
+                 )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -93,11 +121,17 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="email"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                {...bindEmail}
               />
+              {errors.email && touched.email && (
+                  <div className="input-feedback">{errors.email}</div>
+                 )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -106,17 +140,24 @@ export default function SignUp() {
                 fullWidth
                 name="password"
                 label="Password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 type="password"
                 id="password"
+                name="password"
                 autoComplete="current-password"
-                {...bindPassword}
               />
+              {errors.password && touched.password && (
+                  <div className="input-feedback">{errors.password}</div>
+                 )}
             </Grid>
             
           </Grid>
           <Button
             type="submit"
             fullWidth
+            id="registerbtn"
             variant="contained"
             color="primary"
             className={classes.submit}
@@ -131,6 +172,9 @@ export default function SignUp() {
             </Grid>
           </Grid>
         </form>
+            )
+          }}
+        </Formik>
       </div>
       <Footer/>
     </Container>
